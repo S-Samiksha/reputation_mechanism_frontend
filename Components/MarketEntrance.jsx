@@ -1,6 +1,7 @@
 import { useWeb3Contract } from "react-moralis"
 import { abi, contractAddress } from "../constants"
 import { useMoralis } from "react-moralis"
+import { Button, Input } from "web3uikit"
 
 export default function MarketEntrace() {
     const { chainId: chainIdHex } = useMoralis()
@@ -17,13 +18,10 @@ export default function MarketEntrace() {
     return (
         <div className="p-5">
             {storeAddress ? (
-                <div>
-                    <h1 className="py-4 px-4 font-bold text-3xl">
+                <div className="p-5">
+                    <h1 className="py-5 px-`1 font-bold text-3xl">
                         Contract Address: {storeAddress}
                     </h1>
-                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-auto">
-                        Create Seller
-                    </button>
                 </div>
             ) : (
                 <div>No Store Address Detected </div>
