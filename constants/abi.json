@@ -1,1 +1,620 @@
-{"fragments":[{"type":"constructor","inputs":[],"payable":false,"gas":null},{"type":"event","inputs":[{"name":"productID","type":"uint256","baseType":"uint256","indexed":false,"components":null,"arrayLength":null,"arrayChildren":null},{"name":"sellerAddress","type":"address","baseType":"address","indexed":false,"components":null,"arrayLength":null,"arrayChildren":null},{"name":"buyerAddress","type":"address","baseType":"address","indexed":false,"components":null,"arrayLength":null,"arrayChildren":null},{"name":"buyerRating","type":"uint256","baseType":"uint256","indexed":false,"components":null,"arrayLength":null,"arrayChildren":null},{"name":"timeStamp","type":"uint256","baseType":"uint256","indexed":false,"components":null,"arrayLength":null,"arrayChildren":null},{"name":"finalProductRating","type":"uint256","baseType":"uint256","indexed":false,"components":null,"arrayLength":null,"arrayChildren":null},{"name":"totalReviews","type":"uint256","baseType":"uint256","indexed":false,"components":null,"arrayLength":null,"arrayChildren":null}],"name":"buyerReviewEvent","anonymous":false},{"type":"event","inputs":[{"name":"buyerName","type":"string","baseType":"string","indexed":false,"components":null,"arrayLength":null,"arrayChildren":null},{"name":"buyerAddress","type":"address","baseType":"address","indexed":false,"components":null,"arrayLength":null,"arrayChildren":null},{"name":"buyerID","type":"uint256","baseType":"uint256","indexed":false,"components":null,"arrayLength":null,"arrayChildren":null},{"name":"repScore","type":"uint256","baseType":"uint256","indexed":false,"components":null,"arrayLength":null,"arrayChildren":null}],"name":"createBuyerEvent","anonymous":false},{"type":"event","inputs":[{"name":"sellerName","type":"string","baseType":"string","indexed":false,"components":null,"arrayLength":null,"arrayChildren":null},{"name":"sellerAddress","type":"address","baseType":"address","indexed":false,"components":null,"arrayLength":null,"arrayChildren":null},{"name":"sellerID","type":"uint256","baseType":"uint256","indexed":false,"components":null,"arrayLength":null,"arrayChildren":null}],"name":"createSellerEvent","anonymous":false},{"type":"event","inputs":[{"name":"txnID","type":"uint256","baseType":"uint256","indexed":false,"components":null,"arrayLength":null,"arrayChildren":null},{"name":"productID","type":"uint256","baseType":"uint256","indexed":false,"components":null,"arrayLength":null,"arrayChildren":null},{"name":"sellerAddress","type":"address","baseType":"address","indexed":false,"components":null,"arrayLength":null,"arrayChildren":null},{"name":"buyerAddress","type":"address","baseType":"address","indexed":false,"components":null,"arrayLength":null,"arrayChildren":null},{"name":"price","type":"uint256","baseType":"uint256","indexed":false,"components":null,"arrayLength":null,"arrayChildren":null}],"name":"purchasedProductsEvent","anonymous":false},{"type":"event","inputs":[{"name":"productName","type":"string","baseType":"string","indexed":false,"components":null,"arrayLength":null,"arrayChildren":null},{"name":"price","type":"uint256","baseType":"uint256","indexed":false,"components":null,"arrayLength":null,"arrayChildren":null},{"name":"productID","type":"uint256","baseType":"uint256","indexed":false,"components":null,"arrayLength":null,"arrayChildren":null},{"name":"sellerAddress","type":"address","baseType":"address","indexed":false,"components":null,"arrayLength":null,"arrayChildren":null},{"name":"sellerID","type":"uint256","baseType":"uint256","indexed":false,"components":null,"arrayLength":null,"arrayChildren":null}],"name":"uploadProductEvent","anonymous":false},{"type":"function","inputs":[{"name":"buyerRating","type":"uint256","baseType":"uint256","components":null,"arrayLength":null,"arrayChildren":null},{"name":"txnID","type":"uint256","baseType":"uint256","components":null,"arrayLength":null,"arrayChildren":null}],"name":"buyerReview","constant":false,"outputs":[],"stateMutability":"nonpayable","payable":false,"gas":null},{"type":"function","inputs":[{"name":"","type":"address","baseType":"address","components":null,"arrayLength":null,"arrayChildren":null}],"name":"buyersList","constant":true,"outputs":[{"name":"buyerAddress","type":"address","baseType":"address","components":null,"arrayLength":null,"arrayChildren":null},{"name":"buyerName","type":"string","baseType":"string","components":null,"arrayLength":null,"arrayChildren":null},{"name":"buyerID","type":"uint256","baseType":"uint256","components":null,"arrayLength":null,"arrayChildren":null},{"name":"isExist","type":"bool","baseType":"bool","components":null,"arrayLength":null,"arrayChildren":null},{"name":"numOfTxn","type":"uint256","baseType":"uint256","components":null,"arrayLength":null,"arrayChildren":null},{"name":"numOfReviewsGiven","type":"uint256","baseType":"uint256","components":null,"arrayLength":null,"arrayChildren":null},{"name":"lastReviewTime","type":"uint256","baseType":"uint256","components":null,"arrayLength":null,"arrayChildren":null},{"name":"repScore","type":"uint256","baseType":"uint256","components":null,"arrayLength":null,"arrayChildren":null},{"name":"X_Value","type":"uint256","baseType":"uint256","components":null,"arrayLength":null,"arrayChildren":null}],"stateMutability":"view","payable":false,"gas":null},{"type":"function","inputs":[{"name":"_buyerName","type":"string","baseType":"string","components":null,"arrayLength":null,"arrayChildren":null}],"name":"createBuyer","constant":false,"outputs":[],"stateMutability":"nonpayable","payable":false,"gas":null},{"type":"function","inputs":[{"name":"_sellerName","type":"string","baseType":"string","components":null,"arrayLength":null,"arrayChildren":null}],"name":"createSeller","constant":false,"outputs":[],"stateMutability":"nonpayable","payable":false,"gas":null},{"type":"function","inputs":[{"name":"productID","type":"uint256","baseType":"uint256","components":null,"arrayLength":null,"arrayChildren":null},{"name":"sellerAddress","type":"address","baseType":"address","components":null,"arrayLength":null,"arrayChildren":null}],"name":"purchaseProduct","constant":false,"outputs":[],"stateMutability":"payable","payable":true,"gas":null},{"type":"function","inputs":[{"name":"_buyerAddress","type":"address","baseType":"address","components":null,"arrayLength":null,"arrayChildren":null}],"name":"retrieveBuyerID","constant":true,"outputs":[{"name":"","type":"uint256","baseType":"uint256","components":null,"arrayLength":null,"arrayChildren":null}],"stateMutability":"view","payable":false,"gas":null},{"type":"function","inputs":[{"name":"buyerAddress","type":"address","baseType":"address","components":null,"arrayLength":null,"arrayChildren":null}],"name":"retrieveBuyerName","constant":true,"outputs":[{"name":"","type":"string","baseType":"string","components":null,"arrayLength":null,"arrayChildren":null}],"stateMutability":"view","payable":false,"gas":null},{"type":"function","inputs":[{"name":"_sellerAddress","type":"address","baseType":"address","components":null,"arrayLength":null,"arrayChildren":null}],"name":"retrieveSellerID","constant":true,"outputs":[{"name":"","type":"uint256","baseType":"uint256","components":null,"arrayLength":null,"arrayChildren":null}],"stateMutability":"view","payable":false,"gas":null},{"type":"function","inputs":[{"name":"_sellerAddress","type":"address","baseType":"address","components":null,"arrayLength":null,"arrayChildren":null}],"name":"retrieveSellerName","constant":true,"outputs":[{"name":"","type":"string","baseType":"string","components":null,"arrayLength":null,"arrayChildren":null}],"stateMutability":"view","payable":false,"gas":null},{"type":"function","inputs":[],"name":"retrieveTotalBuyers","constant":true,"outputs":[{"name":"","type":"uint256","baseType":"uint256","components":null,"arrayLength":null,"arrayChildren":null}],"stateMutability":"view","payable":false,"gas":null},{"type":"function","inputs":[],"name":"retrieveTotalSellers","constant":true,"outputs":[{"name":"","type":"uint256","baseType":"uint256","components":null,"arrayLength":null,"arrayChildren":null}],"stateMutability":"view","payable":false,"gas":null},{"type":"function","inputs":[{"name":"","type":"address","baseType":"address","components":null,"arrayLength":null,"arrayChildren":null}],"name":"sellersList","constant":true,"outputs":[{"name":"sellerAddress","type":"address","baseType":"address","components":null,"arrayLength":null,"arrayChildren":null},{"name":"sellerName","type":"string","baseType":"string","components":null,"arrayLength":null,"arrayChildren":null},{"name":"sellerID","type":"uint256","baseType":"uint256","components":null,"arrayLength":null,"arrayChildren":null},{"name":"isExist","type":"bool","baseType":"bool","components":null,"arrayLength":null,"arrayChildren":null},{"name":"totalProducts","type":"uint256","baseType":"uint256","components":null,"arrayLength":null,"arrayChildren":null},{"name":"totalRevenue","type":"uint256","baseType":"uint256","components":null,"arrayLength":null,"arrayChildren":null},{"name":"numOfSales","type":"uint256","baseType":"uint256","components":null,"arrayLength":null,"arrayChildren":null}],"stateMutability":"view","payable":false,"gas":null},{"type":"function","inputs":[{"name":"_productName","type":"string","baseType":"string","components":null,"arrayLength":null,"arrayChildren":null},{"name":"price","type":"uint256","baseType":"uint256","components":null,"arrayLength":null,"arrayChildren":null}],"name":"uploadProduct","constant":false,"outputs":[],"stateMutability":"nonpayable","payable":false,"gas":null},{"type":"function","inputs":[{"name":"_sellerAddress","type":"address","baseType":"address","components":null,"arrayLength":null,"arrayChildren":null},{"name":"_productID","type":"uint256","baseType":"uint256","components":null,"arrayLength":null,"arrayChildren":null}],"name":"viewProductName","constant":true,"outputs":[{"name":"","type":"string","baseType":"string","components":null,"arrayLength":null,"arrayChildren":null}],"stateMutability":"view","payable":false,"gas":null},{"type":"function","inputs":[{"name":"_sellerAddress","type":"address","baseType":"address","components":null,"arrayLength":null,"arrayChildren":null},{"name":"_productID","type":"uint256","baseType":"uint256","components":null,"arrayLength":null,"arrayChildren":null}],"name":"viewProductPrice","constant":true,"outputs":[{"name":"","type":"uint256","baseType":"uint256","components":null,"arrayLength":null,"arrayChildren":null}],"stateMutability":"view","payable":false,"gas":null},{"type":"function","inputs":[{"name":"_sellerAddress","type":"address","baseType":"address","components":null,"arrayLength":null,"arrayChildren":null},{"name":"_productID","type":"uint256","baseType":"uint256","components":null,"arrayLength":null,"arrayChildren":null}],"name":"viewProductReview","constant":true,"outputs":[{"name":"","type":"uint256","baseType":"uint256","components":null,"arrayLength":null,"arrayChildren":null}],"stateMutability":"view","payable":false,"gas":null},{"type":"function","inputs":[{"name":"_buyerAddress","type":"address","baseType":"address","components":null,"arrayLength":null,"arrayChildren":null},{"name":"_txnID","type":"uint256","baseType":"uint256","components":null,"arrayLength":null,"arrayChildren":null}],"name":"viewTransactions_ProductID","constant":true,"outputs":[{"name":"","type":"uint256","baseType":"uint256","components":null,"arrayLength":null,"arrayChildren":null}],"stateMutability":"view","payable":false,"gas":null},{"type":"function","inputs":[{"name":"_buyerAddress","type":"address","baseType":"address","components":null,"arrayLength":null,"arrayChildren":null},{"name":"_txnID","type":"uint256","baseType":"uint256","components":null,"arrayLength":null,"arrayChildren":null}],"name":"viewTransactions_Reviewed","constant":true,"outputs":[{"name":"","type":"bool","baseType":"bool","components":null,"arrayLength":null,"arrayChildren":null}],"stateMutability":"view","payable":false,"gas":null},{"type":"function","inputs":[{"name":"_buyerAddress","type":"address","baseType":"address","components":null,"arrayLength":null,"arrayChildren":null},{"name":"_txnID","type":"uint256","baseType":"uint256","components":null,"arrayLength":null,"arrayChildren":null}],"name":"viewTransactions_SellerID","constant":true,"outputs":[{"name":"","type":"uint256","baseType":"uint256","components":null,"arrayLength":null,"arrayChildren":null}],"stateMutability":"view","payable":false,"gas":null}],"deploy":{"type":"constructor","inputs":[],"payable":false,"gas":null},"fallback":null,"receive":false}
+[
+    {
+        "inputs": [],
+        "stateMutability": "nonpayable",
+        "type": "constructor"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "productID",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "address",
+                "name": "sellerAddress",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "address",
+                "name": "buyerAddress",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "buyerRating",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "timeStamp",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "finalProductRating",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "totalReviews",
+                "type": "uint256"
+            }
+        ],
+        "name": "buyerReviewEvent",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "internalType": "string",
+                "name": "buyerName",
+                "type": "string"
+            },
+            {
+                "indexed": false,
+                "internalType": "address",
+                "name": "buyerAddress",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "buyerID",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "repScore",
+                "type": "uint256"
+            }
+        ],
+        "name": "createBuyerEvent",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "internalType": "string",
+                "name": "sellerName",
+                "type": "string"
+            },
+            {
+                "indexed": false,
+                "internalType": "address",
+                "name": "sellerAddress",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "sellerID",
+                "type": "uint256"
+            }
+        ],
+        "name": "createSellerEvent",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "txnID",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "productID",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "address",
+                "name": "sellerAddress",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "address",
+                "name": "buyerAddress",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "price",
+                "type": "uint256"
+            }
+        ],
+        "name": "purchasedProductsEvent",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": false,
+                "internalType": "string",
+                "name": "productName",
+                "type": "string"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "price",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "productID",
+                "type": "uint256"
+            },
+            {
+                "indexed": false,
+                "internalType": "address",
+                "name": "sellerAddress",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "uint256",
+                "name": "sellerID",
+                "type": "uint256"
+            }
+        ],
+        "name": "uploadProductEvent",
+        "type": "event"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "buyerRating",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "txnID",
+                "type": "uint256"
+            }
+        ],
+        "name": "buyerReview",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "name": "buyersList",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "buyerAddress",
+                "type": "address"
+            },
+            {
+                "internalType": "string",
+                "name": "buyerName",
+                "type": "string"
+            },
+            {
+                "internalType": "uint256",
+                "name": "buyerID",
+                "type": "uint256"
+            },
+            {
+                "internalType": "bool",
+                "name": "isExist",
+                "type": "bool"
+            },
+            {
+                "internalType": "uint256",
+                "name": "numOfTxn",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "numOfReviewsGiven",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "lastReviewTime",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "repScore",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "X_Value",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "string",
+                "name": "_buyerName",
+                "type": "string"
+            }
+        ],
+        "name": "createBuyer",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "string",
+                "name": "inputSellerName",
+                "type": "string"
+            }
+        ],
+        "name": "createSeller",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "productID",
+                "type": "uint256"
+            },
+            {
+                "internalType": "address",
+                "name": "sellerAddress",
+                "type": "address"
+            }
+        ],
+        "name": "purchaseProduct",
+        "outputs": [],
+        "stateMutability": "payable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_buyerAddress",
+                "type": "address"
+            }
+        ],
+        "name": "retrieveBuyerID",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "buyerAddress",
+                "type": "address"
+            }
+        ],
+        "name": "retrieveBuyerName",
+        "outputs": [
+            {
+                "internalType": "string",
+                "name": "",
+                "type": "string"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_sellerAddress",
+                "type": "address"
+            }
+        ],
+        "name": "retrieveSellerID",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_sellerAddress",
+                "type": "address"
+            }
+        ],
+        "name": "retrieveSellerName",
+        "outputs": [
+            {
+                "internalType": "string",
+                "name": "",
+                "type": "string"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "retrieveTotalBuyers",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "retrieveTotalSellers",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "name": "sellersList",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "sellerAddress",
+                "type": "address"
+            },
+            {
+                "internalType": "string",
+                "name": "sellerName",
+                "type": "string"
+            },
+            {
+                "internalType": "uint256",
+                "name": "sellerID",
+                "type": "uint256"
+            },
+            {
+                "internalType": "bool",
+                "name": "isExist",
+                "type": "bool"
+            },
+            {
+                "internalType": "uint256",
+                "name": "totalProducts",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "totalRevenue",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "numOfSales",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "string",
+                "name": "_productName",
+                "type": "string"
+            },
+            {
+                "internalType": "uint256",
+                "name": "price",
+                "type": "uint256"
+            }
+        ],
+        "name": "uploadProduct",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_sellerAddress",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_productID",
+                "type": "uint256"
+            }
+        ],
+        "name": "viewProductName",
+        "outputs": [
+            {
+                "internalType": "string",
+                "name": "",
+                "type": "string"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_sellerAddress",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_productID",
+                "type": "uint256"
+            }
+        ],
+        "name": "viewProductPrice",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_sellerAddress",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_productID",
+                "type": "uint256"
+            }
+        ],
+        "name": "viewProductReview",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_buyerAddress",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_txnID",
+                "type": "uint256"
+            }
+        ],
+        "name": "viewTransactions_ProductID",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_buyerAddress",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_txnID",
+                "type": "uint256"
+            }
+        ],
+        "name": "viewTransactions_Reviewed",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_buyerAddress",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_txnID",
+                "type": "uint256"
+            }
+        ],
+        "name": "viewTransactions_SellerID",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    }
+]

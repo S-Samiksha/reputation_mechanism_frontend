@@ -6,29 +6,53 @@ import { Button, Input, useNotification } from "web3uikit"
 
 export default function CreateSellerEntrance() {
     const { isWeb3Enabled, chainId: chainIdHex } = useMoralis()
-    const chainId = parseInt(chainIdHex)
-    const storeAddress = chainId in contractAddress ? contractAddress[chainId][0] : null
+    const chainId = "31337"
+    const storeAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3"
 
     const dispatch = useNotification()
     const [SellerName, setSellerName] = useState(0)
-
-    const handleUpdateListingSuccess = async (tx) => {
-        await tx.wait(1)
-        dispatch({
-            type: "success",
-            message: "seller updated",
-            title: "Listing updated - please refresh (and move blocks)",
-            position: "topR",
-        })
-        setSellerName(SellerName)
-    }
 
     const { runContractFunction: createSeller } = useWeb3Contract({
         abi: abi,
         contractAddress: storeAddress,
         functionName: "createSeller",
-        params: { _sellerName: SellerName },
+        params: { inputSellerName: SellerName },
     })
+
+    async function updateUIValues() {
+        // const entranceFeeFromCall = (await getEntranceFee()).toString()
+        // const numPlayersFromCall = (await getPlayersNumber()).toString()
+        // const recentWinnerFromCall = await getRecentWinner()
+        // setEntranceFee(entranceFeeFromCall)
+        // setNumberOfPlayers(numPlayersFromCall)
+        // setRecentWinner(recentWinnerFromCall)
+    }
+
+    useEffect(() => {
+        if (isWeb3Enabled) {
+            updateUIValues()
+        }
+    }, [isWeb3Enabled])
+
+    const handleNewNotification = () => {
+        dispatch({
+            type: "info",
+            message: "Transaction Complete!",
+            title: "Transaction Notification",
+            position: "topR",
+            icon: "bell",
+        })
+    }
+
+    const handleSuccess = async (tx) => {
+        try {
+            await tx.wait(1)
+            // updateUIValues()
+            // handleNewNotification(tx)
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     return (
         <div className="p-5">
@@ -72,14 +96,14 @@ export default function CreateSellerEntrance() {
                         text="Create Seller"
                         theme="custom"
                         radius={50}
-                        onClick={() => {
+                        onClick={() =>
                             createSeller({
-                                onError: (error) => {
-                                    console.log(error)
-                                },
-                                onSuccess: handleUpdateListingSuccess,
+                                // onComplete:
+                                // onError:
+                                onSuccess: handleSuccess,
+                                onError: (error) => console.log(error),
                             })
-                        }}
+                        }
                     />
                 </div>
             ) : (
