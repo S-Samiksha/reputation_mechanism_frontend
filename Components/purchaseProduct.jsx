@@ -1,19 +1,56 @@
+import { useState, useEffect } from "react"
 import { useWeb3Contract } from "react-moralis"
 import { abi, contractAddress } from "../constants"
 import { useMoralis } from "react-moralis"
-import { Button, Input } from "web3uikit"
+import { Button, Input, useNotification, Typography } from "web3uikit"
 
 export default function PurchaseProductEntrance() {
     const { chainId: chainIdHex } = useMoralis()
     const chainId = parseInt(chainIdHex)
     const storeAddress = chainId in contractAddress ? contractAddress[chainId][0] : null
 
+    const dispatch = useNotification()
+
+    const [ProductID, setProductID] = useState(0)
+    const [sellerAddress, setSellerAddress] = useState(0)
+    const [txnID, setTxnID] = useState(0)
+
     const { runContractFunction: purchaseProduct } = useWeb3Contract({
         abi: abi,
         contractAddress: storeAddress,
         functionName: "PurchaseProduct",
-        params: {},
+        params: { productID: ProductID, sellerAddress: sellerAddress },
     })
+
+    async function updateUIValues() {
+        setTxnID(txnID)
+    }
+
+    useEffect(() => {
+        if (isWeb3Enabled) {
+            updateUIValues()
+        }
+    }, [isWeb3Enabled, TotalBuyers])
+
+    const handleNewNotification = () => {
+        dispatch({
+            type: "info",
+            message: `Product ${ProductID} Purchased From Seller ${sellerAddress}!`,
+            title: "Product Purchase Notification",
+            position: "topR",
+            icon: "bell",
+        })
+    }
+
+    const handleSuccess = async (tx) => {
+        try {
+            const txnID = await tx.wait(1)
+            updateUIValues()
+            handleNewNotification(tx)
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     return (
         <div className="p-5">
@@ -70,6 +107,14 @@ export default function PurchaseProductEntrance() {
                         text="Purchase Product"
                         theme="custom"
                         radius={50}
+                        onClick={() =>
+                            purchaseProduct({
+                                // onComplete:
+                                // onError:
+                                onSuccess: handleSuccess,
+                                onError: (error) => console.log(error),
+                            })
+                        }
                     />
                 </div>
             ) : (

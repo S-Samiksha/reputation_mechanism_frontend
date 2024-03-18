@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import { useWeb3Contract } from "react-moralis"
 import { abi, contractAddress } from "../constants"
 import { useMoralis } from "react-moralis"
-import { Button, Input, useNotification } from "web3uikit"
+import { Button, Input, useNotification, Typography } from "web3uikit"
 
 export default function CreateSellerEntrance() {
     const { isWeb3Enabled, chainId: chainIdHex } = useMoralis()
@@ -10,35 +10,40 @@ export default function CreateSellerEntrance() {
     const storeAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3"
 
     const dispatch = useNotification()
-    const [SellerName, setSellerName] = useState(0)
+
+    const [SellerName, setSellerName] = useState("NULL")
+    const [TotalSellers, setTotalSellers] = useState(0)
 
     const { runContractFunction: createSeller } = useWeb3Contract({
         abi: abi,
         contractAddress: storeAddress,
         functionName: "createSeller",
-        params: { inputSellerName: SellerName },
+        params: { _sellerName: SellerName.toString() },
+    })
+
+    const { runContractFunction: retrieveTotalSellers } = useWeb3Contract({
+        abi: abi,
+        contractAddress: storeAddress,
+        functionName: "retrieveTotalSellers",
+        params: {},
     })
 
     async function updateUIValues() {
-        // const entranceFeeFromCall = (await getEntranceFee()).toString()
-        // const numPlayersFromCall = (await getPlayersNumber()).toString()
-        // const recentWinnerFromCall = await getRecentWinner()
-        // setEntranceFee(entranceFeeFromCall)
-        // setNumberOfPlayers(numPlayersFromCall)
-        // setRecentWinner(recentWinnerFromCall)
+        const totalSellerNum = (await retrieveTotalSellers()).toString()
+        setTotalSellers(totalSellerNum)
     }
 
     useEffect(() => {
         if (isWeb3Enabled) {
             updateUIValues()
         }
-    }, [isWeb3Enabled])
+    }, [isWeb3Enabled, TotalSellers])
 
     const handleNewNotification = () => {
         dispatch({
             type: "info",
-            message: "Transaction Complete!",
-            title: "Transaction Notification",
+            message: "Seller Created!",
+            title: "Seller Creation Notification",
             position: "topR",
             icon: "bell",
         })
@@ -47,8 +52,8 @@ export default function CreateSellerEntrance() {
     const handleSuccess = async (tx) => {
         try {
             await tx.wait(1)
-            // updateUIValues()
-            // handleNewNotification(tx)
+            updateUIValues()
+            handleNewNotification(tx)
         } catch (error) {
             console.log(error)
         }
@@ -105,6 +110,17 @@ export default function CreateSellerEntrance() {
                             })
                         }
                     />
+
+                    <Typography
+                        variant="custom"
+                        style={{
+                            color: "black",
+                            padding: "10px",
+                            marginLeft: "0.1rem",
+                        }}
+                    >
+                        Total Number of Sellers: {TotalSellers}
+                    </Typography>
                 </div>
             ) : (
                 <div>No Store Address Detected </div>
