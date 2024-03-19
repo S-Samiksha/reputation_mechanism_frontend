@@ -7,7 +7,7 @@ import { Button, Input, useNotification, Typography } from "web3uikit"
 export default function CreateSellerEntrance() {
     const { isWeb3Enabled, chainId: chainIdHex } = useMoralis()
     const chainId = "31337"
-    const storeAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3"
+    const storeAddress = chainId in contractAddress ? contractAddress[chainId][0] : null
 
     const dispatch = useNotification()
 
@@ -18,7 +18,7 @@ export default function CreateSellerEntrance() {
         abi: abi,
         contractAddress: storeAddress,
         functionName: "createSeller",
-        params: { _sellerName: SellerName.toString() },
+        params: { _sellerName: SellerName },
     })
 
     const { runContractFunction: retrieveTotalSellers } = useWeb3Contract({

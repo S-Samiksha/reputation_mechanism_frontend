@@ -5,7 +5,7 @@ import { useMoralis } from "react-moralis"
 import { Button, Input, useNotification, Typography } from "web3uikit"
 
 export default function PurchaseProductEntrance() {
-    const { chainId: chainIdHex } = useMoralis()
+    const { isWeb3Enabled, chainId: chainIdHex } = useMoralis()
     const chainId = parseInt(chainIdHex)
     const storeAddress = chainId in contractAddress ? contractAddress[chainId][0] : null
 
@@ -30,7 +30,7 @@ export default function PurchaseProductEntrance() {
         if (isWeb3Enabled) {
             updateUIValues()
         }
-    }, [isWeb3Enabled, TotalBuyers])
+    }, [isWeb3Enabled])
 
     const handleNewNotification = () => {
         dispatch({
