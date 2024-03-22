@@ -12,18 +12,30 @@ export default function PurchaseProductEntrance() {
     const dispatch = useNotification()
 
     const [ProductID, setProductID] = useState(0)
-    const [sellerAddress, setSellerAddress] = useState(0)
+    const [sellerAddress, setSellerAddress] = useState("NULL")
     const [txnID, setTxnID] = useState(0)
+    const [ProductPrice, setProductPrice] = useState(0)
 
     const { runContractFunction: purchaseProduct } = useWeb3Contract({
         abi: abi,
         contractAddress: storeAddress,
-        functionName: "PurchaseProduct",
+        functionName: "purchaseProduct",
+        msgValue: ProductPrice,
         params: { productID: ProductID, sellerAddress: sellerAddress },
     })
 
+    const { runContractFunction: viewProductPrice } = useWeb3Contract({
+        abi: abi,
+        contractAddress: storeAddress,
+        functionName: "viewProductPrice",
+        params: { _sellerAddress: sellerAddress, _productID: ProductID },
+    })
+
     async function updateUIValues() {
-        setTxnID(txnID)
+        if (sellerAddress != "NULL") {
+            const qProductPrice = (await viewProductPrice()).toString()
+            setProductPrice(qProductPrice)
+        }
     }
 
     useEffect(() => {
@@ -44,8 +56,8 @@ export default function PurchaseProductEntrance() {
 
     const handleSuccess = async (tx) => {
         try {
-            const txnID = await tx.wait(1)
             updateUIValues()
+            const txnID = await tx.wait(1)
             handleNewNotification(tx)
         } catch (error) {
             console.log(error)
@@ -79,6 +91,9 @@ export default function PurchaseProductEntrance() {
                                 padding: "10px",
                             }}
                             placeholder="Product ID"
+                            onChange={(event) => {
+                                setProductID(event.target.value)
+                            }}
                         />
                     </div>
                     <div
@@ -95,6 +110,9 @@ export default function PurchaseProductEntrance() {
                                 padding: "10px",
                             }}
                             placeholder="Seller's Address"
+                            onChange={(event) => {
+                                setSellerAddress(event.target.value)
+                            }}
                         />
                     </div>
                     <Button

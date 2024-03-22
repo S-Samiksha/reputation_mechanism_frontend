@@ -69,58 +69,56 @@ export default function CreateSellerEntrance() {
                         display: "flex",
                         height: "50px",
                         justifyContent: "left",
-                        width: "200%",
+                        width: "100%",
                     }}
                 >
                     <div
                         style={{
                             color: "white",
+                            width: "100%",
                             display: "flex",
-                            width: "10%",
-                            padding: "10px",
                         }}
                     >
                         <Input
                             style={{
                                 color: "black",
-                                padding: "10px",
                             }}
                             placeholder="Seller Name"
                             onChange={(event) => {
                                 setSellerName(event.target.value)
                             }}
                         />
-                    </div>
-                    <Button
-                        style={{
-                            color: "black",
-                            backgroundColor: "lightblue",
-                            padding: "10px",
-                            marginLeft: "0.1rem",
-                        }}
-                        text="Create Seller"
-                        theme="custom"
-                        radius={50}
-                        onClick={() =>
-                            createSeller({
-                                // onComplete:
-                                // onError:
-                                onSuccess: handleSuccess,
-                                onError: (error) => console.log(error),
-                            })
-                        }
-                    />
 
-                    <Typography
-                        variant="custom"
-                        style={{
-                            color: "black",
-                            padding: "10px",
-                            marginLeft: "0.1rem",
-                        }}
-                    >
-                        Total Number of Sellers: {TotalSellers}
-                    </Typography>
+                        <Button
+                            style={{
+                                color: "black",
+                                backgroundColor: "lightblue",
+                                marginLeft: "1rem",
+                                padding: "10px",
+                            }}
+                            text="Create Seller"
+                            theme="custom"
+                            radius={50}
+                            onClick={() =>
+                                createSeller({
+                                    // onComplete:
+                                    // onError:
+                                    onSuccess: handleSuccess,
+                                    onError: (error) => console.log(error),
+                                })
+                            }
+                        />
+
+                        <Typography
+                            variant="custom"
+                            style={{
+                                color: "black",
+                                marginLeft: "1rem",
+                            }}
+                        >
+                            Total Number of Sellers: {TotalSellers}
+                        </Typography>
+                    </div>
                 </div>
             ) : (
                 <div>No Store Address Detected </div>

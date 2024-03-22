@@ -11,6 +11,7 @@ import UploadProductEntrance from "../../Components/uploadProduct.jsx"
 import PurchaseProductEntrance from "../../Components/purchaseProduct"
 import BuyerReviewEntrance from "../../Components/buyerReview"
 import RetrieveProductsEntrance from "../../Components/retrieveProducts"
+import RetrieveBuyerEntrance from "../../Components/retrieveBuyer"
 import { TabList, Tab } from "web3uikit"
 
 const supportedChains = ["31337", "11155111"]
@@ -33,6 +34,7 @@ export default function Home() {
                 </Tab>
                 <Tab tabkey={2} tabName="Buyers">
                     <CreateBuyerEntrance />
+                    <RetrieveBuyerEntrance />
                     <PurchaseProductEntrance />
                     <BuyerReviewEntrance />
                 </Tab>

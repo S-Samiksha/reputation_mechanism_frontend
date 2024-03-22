@@ -1,19 +1,51 @@
+import { useState, useEffect } from "react"
 import { useWeb3Contract } from "react-moralis"
 import { abi, contractAddress } from "../constants"
 import { useMoralis } from "react-moralis"
-import { Button, Input } from "web3uikit"
+import { Button, Input, useNotification, Typography } from "web3uikit"
 
 export default function BuyerReviewEntrance() {
-    const { chainId: chainIdHex } = useMoralis()
+    const { isWeb3Enabled, chainId: chainIdHex } = useMoralis()
     const chainId = parseInt(chainIdHex)
     const storeAddress = chainId in contractAddress ? contractAddress[chainId][0] : null
+    const [queryTxn, setQueryTxn] = useState(0)
+    const [ratingGiven, setRating] = useState(0)
 
     const { runContractFunction: buyerReview } = useWeb3Contract({
         abi: abi,
         contractAddress: storeAddress,
         functionName: "buyerReview",
-        params: {},
+        params: { buyerRating: ratingGiven, txnID: queryTxn },
     })
+
+    async function updateUIValues() {
+        //if needed later
+    }
+
+    useEffect(() => {
+        if (isWeb3Enabled) {
+            updateUIValues()
+        }
+    }, [isWeb3Enabled])
+
+    const handleNewNotification = () => {
+        dispatch({
+            type: "info",
+            message: "buyer review left!",
+            title: "buyer review Notification",
+            position: "topR",
+            icon: "bell",
+        })
+    }
+
+    const handleSuccess = async (tx) => {
+        try {
+            updateUIValues()
+            handleNewNotification(tx)
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     return (
         <div className="p-5">
@@ -42,6 +74,9 @@ export default function BuyerReviewEntrance() {
                                 padding: "10px",
                             }}
                             placeholder="Rating"
+                            onChange={(event) => {
+                                setRating(event.target.value)
+                            }}
                         />
                     </div>
                     <div
@@ -58,6 +93,9 @@ export default function BuyerReviewEntrance() {
                                 padding: "10px",
                             }}
                             placeholder="Transaction ID"
+                            onChange={(event) => {
+                                setQueryTxn(event.target.value)
+                            }}
                         />
                     </div>
                     <Button
@@ -70,6 +108,14 @@ export default function BuyerReviewEntrance() {
                         text="Leave Review"
                         theme="custom"
                         radius={50}
+                        onClick={() =>
+                            buyerReview({
+                                // onComplete:
+                                // onError:
+                                onSuccess: handleSuccess,
+                                onError: (error) => console.log(error),
+                            })
+                        }
                     />
                 </div>
             ) : (

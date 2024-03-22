@@ -18,7 +18,7 @@ export default function UploadProductEntrance() {
         abi: abi,
         contractAddress: storeAddress,
         functionName: "uploadProduct",
-        params: {},
+        params: { _productName: ProductName, price: ProductPrice },
     })
 
     const handleNewNotification = () => {
@@ -50,66 +50,56 @@ export default function UploadProductEntrance() {
                         display: "flex",
                         height: "50px",
                         justifyContent: "left",
-                        width: "200%",
+                        width: "100%",
                     }}
                 >
                     <div
                         style={{
                             color: "white",
                             display: "flex",
-                            width: "10%",
-                            padding: "10px",
+                            width: "100%",
                         }}
                     >
                         <Input
                             style={{
                                 color: "black",
-                                padding: "10px",
                             }}
                             placeholder="Product Name"
                             onChange={(event) => {
                                 setProductName(event.target.value)
                             }}
                         />
-                    </div>
-                    <div
-                        style={{
-                            color: "white",
-                            display: "flex",
-                            width: "10%",
-                            padding: "10px",
-                        }}
-                    >
                         <Input
                             style={{
                                 color: "black",
                                 padding: "10px",
+                                marginLeft: "1rem",
                             }}
                             placeholder="Product Price"
                             onChange={(event) => {
                                 setProductPrice(event.target.value)
                             }}
                         />
+                        <Button
+                            style={{
+                                color: "black",
+                                backgroundColor: "lightblue",
+                                padding: "10px",
+                                marginLeft: "1rem",
+                            }}
+                            text="Upload Product"
+                            theme="custom"
+                            radius={50}
+                            onClick={() =>
+                                uploadProduct({
+                                    // onComplete:
+                                    // onError:
+                                    onSuccess: handleSuccess,
+                                    onError: (error) => console.log(error),
+                                })
+                            }
+                        />
                     </div>
-                    <Button
-                        style={{
-                            color: "black",
-                            backgroundColor: "lightblue",
-                            padding: "10px",
-                            marginLeft: "0.1rem",
-                        }}
-                        text="Upload Product"
-                        theme="custom"
-                        radius={50}
-                        onClick={() =>
-                            uploadProduct({
-                                // onComplete:
-                                // onError:
-                                onSuccess: handleSuccess,
-                                onError: (error) => console.log(error),
-                            })
-                        }
-                    />
                 </div>
             ) : (
                 <div>No Store Address Detected </div>

@@ -346,6 +346,44 @@
         "inputs": [
             {
                 "internalType": "address",
+                "name": "_buyerAddress",
+                "type": "address"
+            }
+        ],
+        "name": "retrieveBuyerRepScore",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_buyerAddress",
+                "type": "address"
+            }
+        ],
+        "name": "retrieveBuyerTotalTransactions",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
                 "name": "_sellerAddress",
                 "type": "address"
             }
@@ -607,6 +645,30 @@
                 "internalType": "bool",
                 "name": "",
                 "type": "bool"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_buyerAddress",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_txnID",
+                "type": "uint256"
+            }
+        ],
+        "name": "viewTransactions_SellerAddress",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "sellerAddress",
+                "type": "address"
             }
         ],
         "stateMutability": "view",

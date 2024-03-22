@@ -4,62 +4,41 @@ import { abi, contractAddress } from "../constants"
 import { useMoralis } from "react-moralis"
 import { Button, Input, useNotification, Typography } from "web3uikit"
 
-export default function RetrieveProductsEntrance() {
+export default function RetrieveBuyerEntrance() {
     const { isWeb3Enabled, chainId: chainIdHex } = useMoralis()
     const chainId = "31337"
     const storeAddress = chainId in contractAddress ? contractAddress[chainId][0] : null
 
     const dispatch = useNotification()
 
-    const [SellerName, setSellerName] = useState("NULL")
-    const [SellerAddress, setSellerAddress] = useState("NULL")
-    const [ProductPrice, setProductPrice] = useState(0)
-    const [ProductID, setProductID] = useState(0)
-    const [totalProducts, setTotalProducts] = useState(0)
-    const [ProductName, setProductName] = useState("NULL")
-    const [ProductReview, setProductReview] = useState(0)
+    const [buyerName, setbuyerName] = useState("NULL")
+    const [buyerAddress, setbuyerAddress] = useState("NULL")
+    const [buyerTxn, setTotalTxn] = useState(0)
+    const [queryTxn, setQueryTxn] = useState(0)
+    const [queryTxnSellerId, setQueryTxnSellerID] = useState(0)
+    const [queryTxnProductId, setQueryTxnProductID] = useState(0)
+    const [queryTxnSellerAddress, setQueryTxnSellerAddress] = useState("NULL")
 
-    const { runContractFunction: retrieveSellerName } = useWeb3Contract({
+    const { runContractFunction: retrieveBuyerName } = useWeb3Contract({
         abi: abi,
         contractAddress: storeAddress,
-        functionName: "retrieveSellerName",
-        params: { _sellerAddress: SellerAddress },
+        functionName: "retrieveBuyerName",
+        params: { buyerAddress: buyerAddress },
     })
 
-    const { runContractFunction: retrieveSellerTotalProducts } = useWeb3Contract({
+    const { runContractFunction: retrieveBuyerTotalTransactions } = useWeb3Contract({
         abi: abi,
         contractAddress: storeAddress,
-        functionName: "retrieveSellerTotalProducts",
-        params: { _sellerAddress: SellerAddress },
-    })
-
-    const { runContractFunction: viewProductName } = useWeb3Contract({
-        abi: abi,
-        contractAddress: storeAddress,
-        functionName: "viewProductName",
-        params: { _sellerAddress: SellerAddress, _productID: ProductID },
-    })
-
-    const { runContractFunction: viewProductPrice } = useWeb3Contract({
-        abi: abi,
-        contractAddress: storeAddress,
-        functionName: "viewProductPrice",
-        params: { _sellerAddress: SellerAddress, _productID: ProductID },
-    })
-
-    const { runContractFunction: viewProductReview } = useWeb3Contract({
-        abi: abi,
-        contractAddress: storeAddress,
-        functionName: "viewProductReview",
-        params: { _sellerAddress: SellerAddress, _productID: ProductID },
+        functionName: "retrieveBuyerTotalTransactions",
+        params: { _buyerAddress: buyerAddress },
     })
 
     async function updateUIValues() {
-        if (SellerAddress != "NULL") {
-            const returnedSellerName = (await retrieveSellerName()).toString()
-            const returnedTotalProducts = (await retrieveSellerTotalProducts()).toString()
-            setSellerName(returnedSellerName)
-            setTotalProducts(returnedTotalProducts)
+        if (buyerAddress != "NULL") {
+            const returnedbuyerName = (await retrieveBuyerName()).toString()
+            const returnedTotalTxn = (await retrieveBuyerTotalTransactions()).toString()
+            setbuyerName(returnedbuyerName)
+            setTotalTxn(returnedTotalTxn)
         }
     }
 
@@ -67,13 +46,13 @@ export default function RetrieveProductsEntrance() {
         if (isWeb3Enabled) {
             updateUIValues()
         }
-    }, [isWeb3Enabled, SellerName, totalProducts])
+    }, [isWeb3Enabled, buyerName, buyerTxn])
 
     const handleNewNotification = () => {
         dispatch({
             type: "info",
-            message: "Seller Information Retreived!",
-            title: "Seller Information Notification",
+            message: "buyer Information Retreived!",
+            title: "buyer Information Notification",
             position: "topR",
             icon: "bell",
         })
@@ -88,22 +67,43 @@ export default function RetrieveProductsEntrance() {
         }
     }
 
+    const { runContractFunction: viewTransactions_SellerID } = useWeb3Contract({
+        abi: abi,
+        contractAddress: storeAddress,
+        functionName: "viewTransactions_SellerID",
+        params: { _buyerAddress: buyerAddress, _txnID: queryTxn },
+    })
+
+    const { runContractFunction: viewTransactions_ProductID } = useWeb3Contract({
+        abi: abi,
+        contractAddress: storeAddress,
+        functionName: "viewTransactions_ProductID",
+        params: { _buyerAddress: buyerAddress, _txnID: queryTxn },
+    })
+
+    const { runContractFunction: viewTransactions_SellerAddress } = useWeb3Contract({
+        abi: abi,
+        contractAddress: storeAddress,
+        functionName: "viewTransactions_SellerAddress",
+        params: { _buyerAddress: buyerAddress, _txnID: queryTxn },
+    })
+
     async function updateUIValuesTwo() {
-        if (SellerAddress != "NULL") {
-            const RProductName = (await viewProductName()).toString()
-            const RProductPrice = (await viewProductPrice()).toString()
-            const RProductReview = (await viewProductReview()).toString()
-            setProductPrice(RProductPrice)
-            setProductName(RProductName)
-            setProductReview(RProductReview)
+        if (buyerAddress != "NULL") {
+            const txn_seller_id = (await viewTransactions_SellerID()).toString()
+            const txn_product_id = (await viewTransactions_ProductID()).toString()
+            const txn_seller_address = (await viewTransactions_SellerAddress()).toString()
+            setQueryTxnSellerID(txn_seller_id)
+            setQueryTxnProductID(txn_product_id)
+            setQueryTxnSellerAddress(txn_seller_address)
         }
     }
 
     const handleNewNotificationTwo = () => {
         dispatch({
             type: "info",
-            message: "Seller Product Information Retreived!",
-            title: "Seller Product Information Notification",
+            message: "Buyer Transaction Information Retreived!",
+            title: "Buyer Transaction Information Notification",
             position: "topR",
             icon: "bell",
         })
@@ -141,9 +141,9 @@ export default function RetrieveProductsEntrance() {
                             style={{
                                 color: "black",
                             }}
-                            placeholder="Seller Address"
+                            placeholder="buyer Address"
                             onChange={(event) => {
-                                setSellerAddress(event.target.value)
+                                setbuyerAddress(event.target.value)
                             }}
                         />
 
@@ -153,11 +153,11 @@ export default function RetrieveProductsEntrance() {
                                 backgroundColor: "lightblue",
                                 marginLeft: "1rem",
                             }}
-                            text="Retrieve Seller Name"
+                            text="Retrieve buyer Name"
                             theme="custom"
                             radius={50}
                             onClick={() =>
-                                retrieveSellerName({
+                                retrieveBuyerName({
                                     // onComplete:
                                     // onError:
                                     onSuccess: handleSuccess,
@@ -175,7 +175,7 @@ export default function RetrieveProductsEntrance() {
                                 display: "flex",
                             }}
                         >
-                            Seller's Name: {SellerName}
+                            buyer's Name: {buyerName}
                         </Typography>
                         <Typography
                             variant="custom"
@@ -186,7 +186,7 @@ export default function RetrieveProductsEntrance() {
                                 display: "flex",
                             }}
                         >
-                            Seller's TotalProducts: {totalProducts}
+                            Buyer's Total Transactions: {buyerTxn}
                         </Typography>
                     </div>
                     <div
@@ -208,9 +208,9 @@ export default function RetrieveProductsEntrance() {
                                 style={{
                                     color: "black",
                                 }}
-                                placeholder="Seller Address"
+                                placeholder="buyer Address"
                                 onChange={(event) => {
-                                    setSellerAddress(event.target.value)
+                                    setbuyerAddress(event.target.value)
                                 }}
                             />
 
@@ -219,9 +219,9 @@ export default function RetrieveProductsEntrance() {
                                     color: "black",
                                     marginLeft: "1rem",
                                 }}
-                                placeholder="Product ID"
+                                placeholder="Txn ID"
                                 onChange={(event) => {
-                                    setProductID(event.target.value)
+                                    setQueryTxn(event.target.value)
                                 }}
                             />
 
@@ -231,11 +231,11 @@ export default function RetrieveProductsEntrance() {
                                     backgroundColor: "lightblue",
                                     marginLeft: "1rem",
                                 }}
-                                text="Retrieve Seller Product"
+                                text="Retrieve Transaction"
                                 theme="custom"
                                 radius={50}
                                 onClick={() =>
-                                    viewProductName({
+                                    viewTransactions_SellerID({
                                         // onComplete:
                                         // onError:
                                         onSuccess: handleSuccessTwo,
@@ -253,7 +253,7 @@ export default function RetrieveProductsEntrance() {
                                     display: "flex",
                                 }}
                             >
-                                Product Name: {ProductName}
+                                Seller ID: {queryTxnSellerId}
                             </Typography>
                             <Typography
                                 variant="custom"
@@ -264,8 +264,9 @@ export default function RetrieveProductsEntrance() {
                                     display: "flex",
                                 }}
                             >
-                                Product Price: {ProductPrice}
+                                Seller Address: {queryTxnSellerAddress}
                             </Typography>
+
                             <Typography
                                 variant="custom"
                                 style={{
@@ -275,7 +276,7 @@ export default function RetrieveProductsEntrance() {
                                     display: "flex",
                                 }}
                             >
-                                Product Review: {ProductReview}
+                                Product ID: {queryTxnProductId}
                             </Typography>
                         </div>
                     </div>
