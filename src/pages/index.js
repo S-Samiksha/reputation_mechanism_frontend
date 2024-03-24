@@ -12,6 +12,8 @@ import PurchaseProductEntrance from "../../Components/purchaseProduct"
 import BuyerReviewEntrance from "../../Components/buyerReview"
 import RetrieveProductsEntrance from "../../Components/retrieveProducts"
 import RetrieveBuyerEntrance from "../../Components/retrieveBuyer"
+import SendIncentiveMechanismEntrance from "../../Components/incentiveMechanism"
+import RetrieveAllProductsEntrance from "../../Components/retrieveAllProducts"
 import { TabList, Tab } from "web3uikit"
 
 const supportedChains = ["31337", "11155111"]
@@ -26,13 +28,14 @@ export default function Home() {
             </Head>
             <Header />
             <MarketEntrance />
-            <TabList>
-                <Tab tabKey={1} tabName="Sellers">
+            <TabList isWidthAuto tabStyle="bulbUnion">
+                <Tab tabKey={1} tabName="Seller's Page" lineHeight={30}>
                     <CreateSellerEntrance />
                     <UploadProductEntrance />
                     <RetrieveProductsEntrance />
+                    <SendIncentiveMechanismEntrance />
                 </Tab>
-                <Tab tabkey={2} tabName="Buyers">
+                <Tab tabkey={2} tabName="Buyer's Page" lineHeight={30}>
                     <CreateBuyerEntrance />
                     <RetrieveBuyerEntrance />
                     <PurchaseProductEntrance />

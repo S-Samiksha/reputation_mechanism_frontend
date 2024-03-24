@@ -275,7 +275,7 @@ export default function RetrieveProductsEntrance() {
                                     display: "flex",
                                 }}
                             >
-                                Product Review: {ProductReview}
+                                Product Review: {ProductReview / 10 ** 18}
                             </Typography>
                         </div>
                     </div>

@@ -18,6 +18,7 @@ export default function RetrieveBuyerEntrance() {
     const [queryTxnSellerId, setQueryTxnSellerID] = useState(0)
     const [queryTxnProductId, setQueryTxnProductID] = useState(0)
     const [queryTxnSellerAddress, setQueryTxnSellerAddress] = useState("NULL")
+    const [buyerRepScore, setBuyerRepScore] = useState(0)
 
     const { runContractFunction: retrieveBuyerName } = useWeb3Contract({
         abi: abi,
@@ -33,12 +34,22 @@ export default function RetrieveBuyerEntrance() {
         params: { _buyerAddress: buyerAddress },
     })
 
+    const { runContractFunction: retrieveBuyerRepScore } = useWeb3Contract({
+        abi: abi,
+        contractAddress: storeAddress,
+        functionName: "retrieveBuyerRepScore",
+        params: { _buyerAddress: buyerAddress },
+    })
+
     async function updateUIValues() {
         if (buyerAddress != "NULL") {
             const returnedbuyerName = (await retrieveBuyerName()).toString()
             const returnedTotalTxn = (await retrieveBuyerTotalTransactions()).toString()
+            const returnedRepScore = (await retrieveBuyerRepScore()).toString()
+
             setbuyerName(returnedbuyerName)
             setTotalTxn(returnedTotalTxn)
+            setBuyerRepScore(returnedRepScore)
         }
     }
 
@@ -46,7 +57,7 @@ export default function RetrieveBuyerEntrance() {
         if (isWeb3Enabled) {
             updateUIValues()
         }
-    }, [isWeb3Enabled, buyerName, buyerTxn])
+    }, [isWeb3Enabled, buyerName, buyerTxn, buyerRepScore])
 
     const handleNewNotification = () => {
         dispatch({
@@ -153,7 +164,7 @@ export default function RetrieveBuyerEntrance() {
                                 backgroundColor: "lightblue",
                                 marginLeft: "1rem",
                             }}
-                            text="Retrieve buyer Name"
+                            text="Retrieve Buyer Details"
                             theme="custom"
                             radius={50}
                             onClick={() =>
@@ -187,6 +198,17 @@ export default function RetrieveBuyerEntrance() {
                             }}
                         >
                             Buyer's Total Transactions: {buyerTxn}
+                        </Typography>
+                        <Typography
+                            variant="custom"
+                            style={{
+                                color: "black",
+                                padding: "10px",
+                                marginLeft: "0.1rem",
+                                display: "flex",
+                            }}
+                        >
+                            Buyer's Reputation Score: {buyerRepScore / 10 ** 18}
                         </Typography>
                     </div>
                     <div

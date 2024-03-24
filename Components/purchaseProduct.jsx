@@ -57,7 +57,8 @@ export default function PurchaseProductEntrance() {
     const handleSuccess = async (tx) => {
         try {
             updateUIValues()
-            const txnID = await tx.wait(1)
+            await tx.wait(1)
+
             handleNewNotification(tx)
         } catch (error) {
             console.log(error)
