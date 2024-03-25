@@ -1,7 +1,7 @@
 # Front End For Reputation Mechanism
 
 # Other Related Github Links
-[Back End End](https://github.com/S-Samiksha/Reputation_Mechanism/tree/main) <br>
+[Back End](https://github.com/S-Samiksha/Reputation_Mechanism/tree/main) <br>
 [Reputation Mechanism Simulation](https://github.com/S-Samiksha/Reputation_Mechanism_Simulations/tree/main) <br>
 
 # About this repository 
