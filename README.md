@@ -14,5 +14,10 @@ This repository contains the solidity codes for the front end for the E-commerce
 git clone https://github.com/S-Samiksha/reputation_mechanism_frontend
 cd reputation_mechanism_frontend
 yarn 
+```
+
+# Running the front end
+
+```bash
 yarn run dev
 ```
