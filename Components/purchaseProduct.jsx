@@ -34,7 +34,8 @@ export default function PurchaseProductEntrance() {
     async function updateUIValues() {
         if (sellerAddress != "NULL") {
             const qProductPrice = (await viewProductPrice()).toString()
-            setProductPrice(qProductPrice)
+            setProductPrice(parseInt(qProductPrice))
+            console.log(ProductPrice)
         }
     }
 
@@ -42,7 +43,7 @@ export default function PurchaseProductEntrance() {
         if (isWeb3Enabled) {
             updateUIValues()
         }
-    }, [isWeb3Enabled])
+    }, [isWeb3Enabled, sellerAddress])
 
     const handleNewNotification = () => {
         dispatch({
