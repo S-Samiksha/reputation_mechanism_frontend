@@ -18,6 +18,7 @@ export default function RetrieveProductsEntrance() {
     const [totalProducts, setTotalProducts] = useState(0)
     const [ProductName, setProductName] = useState("NULL")
     const [ProductReview, setProductReview] = useState(0)
+    const [SellerID, setSellerID] = useState(0)
 
     const { runContractFunction: retrieveSellerName } = useWeb3Contract({
         abi: abi,
@@ -54,12 +55,30 @@ export default function RetrieveProductsEntrance() {
         params: { _sellerAddress: SellerAddress, _productID: ProductID },
     })
 
+    const { runContractFunction: retrieveSellerAddress } = useWeb3Contract({
+        abi: abi,
+        contractAddress: storeAddress,
+        functionName: "retrieveSellerAddress",
+        params: { sellerID: SellerID },
+    })
+
     async function updateUIValues() {
-        if (SellerAddress != "NULL") {
-            const returnedSellerName = (await retrieveSellerName()).toString()
-            const returnedTotalProducts = (await retrieveSellerTotalProducts()).toString()
-            setSellerName(returnedSellerName)
-            setTotalProducts(returnedTotalProducts)
+        if (SellerID != 0) {
+            const returnedSellerAddress = (await retrieveSellerAddress()).toString()
+            setSellerAddress(returnedSellerAddress)
+
+            if (returnedSellerAddress) {
+                const returnedSellerName = (await retrieveSellerName()).toString()
+                const returnedTotalProducts = (await retrieveSellerTotalProducts()).toString()
+
+                if (returnedTotalProducts != 0) {
+                    setSellerName(returnedSellerName)
+                    setTotalProducts(returnedTotalProducts)
+                } else {
+                    setSellerName(returnedSellerName)
+                    setTotalProducts(0)
+                }
+            }
         }
     }
 
@@ -141,9 +160,9 @@ export default function RetrieveProductsEntrance() {
                             style={{
                                 color: "black",
                             }}
-                            placeholder="Seller Address"
+                            placeholder="Seller ID"
                             onChange={(event) => {
-                                setSellerAddress(event.target.value)
+                                setSellerID(event.target.value)
                             }}
                         />
 
@@ -157,7 +176,7 @@ export default function RetrieveProductsEntrance() {
                             theme="custom"
                             radius={50}
                             onClick={() =>
-                                retrieveSellerName({
+                                retrieveSellerAddress({
                                     // onComplete:
                                     // onError:
                                     onSuccess: handleSuccess,
@@ -165,6 +184,18 @@ export default function RetrieveProductsEntrance() {
                                 })
                             }
                         />
+
+                        <Typography
+                            variant="custom"
+                            style={{
+                                color: "black",
+                                padding: "10px",
+                                marginLeft: "1rem",
+                                display: "flex",
+                            }}
+                        >
+                            Seller's Address: {SellerAddress}
+                        </Typography>
 
                         <Typography
                             variant="custom"
