@@ -1,13 +1,23 @@
-### Things to do:
-1. Stopped at 17:08 
-3. Add buyer
-4. Add seller
-5. Upload product
-6. purchase product 
-7. Leave a review 
-8. Styling
+# Front End For Reputation Mechanism
 
+# Other Related Github Links
+[Back End](https://github.com/S-Samiksha/Reputation_Mechanism/tree/main) <br>
+[Reputation Mechanism Simulation](https://github.com/S-Samiksha/Reputation_Mechanism_Simulations/tree/main) <br>
 
-### Things that are done
-1. Connect button
-2. Retrieving contractABI and contract Address
+# About this repository 
+
+This repository contains the solidity codes for the front end for the E-commerce Platform. 
+
+# Clone the repository and installing the packages
+
+```bash
+git clone https://github.com/S-Samiksha/reputation_mechanism_frontend
+cd reputation_mechanism_frontend
+yarn 
+```
+
+# Running the front end
+
+```bash
+yarn run dev
+```
